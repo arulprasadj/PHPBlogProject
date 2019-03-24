@@ -24,10 +24,12 @@
         die("Connection failed: " . $conn->connect_error);
     } 
     
-    $sql = "INSERT INTO users (FIRST_NAME, LAST_NAME, EMAIL, USER_NAME, PASSWORD)
-    VALUES ('".$firstname."', '".$lastname."', '".$email."', '".$newusername."', '".$newpassword."')";
+    $sql = "INSERT INTO users (First_name, Last_name, User_email1, User_name)
+    VALUES ('".$firstname."', '".$lastname."', '".$email."', '".$newusername."')";
+    $sql2 = "INSERT INTO passwords (User_name, User_password) VALUES ('".$newusername."', '".$newpassword."')";
+
     
-    if ($conn->query($sql) === TRUE) {
+    if ($conn->query($sql) === TRUE && $conn->query($sql2) === TRUE) {
         echo "You have successfully registered for this site.";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
