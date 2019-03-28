@@ -26,10 +26,10 @@
     
     $sql = "INSERT INTO users (First_name, Last_name, User_email1, User_name)
     VALUES ('".$firstname."', '".$lastname."', '".$email."', '".$newusername."')";
-    $sql2 = "INSERT INTO passwords (User_name, User_password) VALUES ('".$newusername."', '".$newpassword."')";
+    $sql .= "INSERT INTO passwords (User_name, User_password) VALUES ('".$newusername."', '".$newpassword."')";
 
     
-    if ($conn->query($sql) === TRUE && $conn->query($sql2) === TRUE) {
+    if ($conn->query($sql) === TRUE) {
         echo "You have successfully registered for this site.";
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;

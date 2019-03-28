@@ -2,41 +2,50 @@
 Then I got a little carried away and added some stuff to
 make it look less awful.*/
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+/*---------------------BODY STYLE----------------------------*/
 body {
-    font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
-.container {
-    margin: auto;
-    width: 50%;
-    padding: 10px;
-  }
-  /* Full-width input fields */
+body {
+  margin: auto;
+  width: 30%;
+  padding: 10px;
+}
+
+/*------------------FORM AND TABLE STYLES -----------------*/
+/* Full-width input fields */
 input[type=text], input[type=password] {
-    width: 100%;
-    padding: 15px;
-    margin: 5px 0px 22px 0px;
-    display: inline-block;
-    border: none;
-    background: #f1f1f1;
-  }
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0px 22px 0px;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
 label[for=lastname] {
-    display: block;
-    margin-left: auto;
-    width: 50%;
-  }
-  table, tr {
-      width: 100%;
-  }
+  display: block;
+  margin-left: auto;
+  width: 50%;
+}
+table, tr {
+    width: 90%;
+}
 input[type=submit] {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    text-decoration: none;
-    margin: 4px 2px;
-    cursor: pointer;    
-  }
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;    
+}
 table tr td:first-child {
-      width:140px;
+    width:140px;
+}
+
+/*--------------------- GENERAL TEXT STYLES ----------------------*/
+p {
+  font-size: 1.2em;
 }
   
