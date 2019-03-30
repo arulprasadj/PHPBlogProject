@@ -15,7 +15,7 @@
         </header>
         <main>
             <div class="container">
-                <form action="loginHandler.php" method="POST">
+                <form action="login.php" method="POST">
                 <fieldset>
                     <table>
                             <legend>Enter Credentials</legend>
@@ -25,11 +25,12 @@
                             </tr>
                             <tr>
                                 <td><strong>Password: </strong></td>
-                                <td><input type="password" name="password" placeholder="Enter password..."></td>
+                                <td><input type="password" name="password" placeholder="Enter password..." pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                                    title="The password you entered contains illegal characters or spaces. Please try again."></td>
                             </tr>
                             <tr>
                                 <td></td>
-                                <td><input type="submit" value="Login"></td>
+                                <td><input type="submit" value="Login" style="float: left; margin-right: 20px;"><p>Not a user? <a href="registration.html">Click here to Register.</a></p></td>
                             </tr>
                     </table>
                 </fieldset>

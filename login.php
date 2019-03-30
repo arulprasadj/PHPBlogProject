@@ -36,26 +36,25 @@
                             if ($conn->connect_error) {
                                 die("Connection failed: " . $conn->connect_error);
                             } 
-
-                    // *** I attempted the query using HEREDOC but have been unable to make it work yet. I see nothing wrong with the below syntax.
-                    //     $sql = <<<SQL
-                    //         SELECT *
-                    //         FROM `users`, `passwords`
-                    //         WHERE users.User_id = passwords.User_id 
-                    //         AND {$formusername} = users.User_name
-                    //         AND {$formpassword} = passwords.User_password
-                    // SQL;
-
-                    $sql = 'SELECT * FROM users, passwords WHERE users.User_id = passwords.User_id AND "'.$formusername.'" = users.User_name AND "'.$formpassword.'" = passwords.User_password';
+                            
+                        $sql = <<<SQL
+                            SELECT *
+                            FROM `users`, `passwords`
+                            WHERE users.User_id = passwords.User_id 
+                            AND "{$formusername}" = users.User_name
+                            AND "{$formpassword}" = passwords.User_password
+SQL;
 
                         $result = $conn->query($sql);
 
                         switch ($result->num_rows) {
                             case 0:
-                                echo "Login Failed.";
+                                echo "Login Failed. Incorrect username or password.<br><p><a href='login.html'>Go back</a> to try again or <a href='registration.html'>click here to register.</a></p>";
                                 break;
                             case 1:
-                                echo "Login Succeeded.";
+                                $row = $result->fetch_assoc();
+                                echo "Login Succeeded. ";
+                                echo "Welcome, " . $row['First_name'] . ", to  the blog.";
                                 break;
                             case 2:
                                 echo "There are multiple users registered";

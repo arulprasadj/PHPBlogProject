@@ -1,6 +1,16 @@
 /* I wanted it centered so.... 
 Then I got a little carried away and added some stuff to
 make it look less awful.*/
+
+/* BORDER BOX FIX - I use a lot of padding and stuff */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
 /*---------------------BODY STYLE----------------------------*/
@@ -9,7 +19,7 @@ body {
 }
 body {
   margin: auto;
-  width: 30%;
+  width: 50%;
   padding: 10px;
 }
 
@@ -26,6 +36,7 @@ input[type=text], input[type=password] {
 label[for=lastname] {
   display: block;
   margin-left: auto;
+  margin-right: 10px;
   width: 50%;
 }
 table, tr {
@@ -48,4 +59,34 @@ table tr td:first-child {
 p {
   font-size: 1.2em;
 }
-  
+label {
+  width: 100%;
+  clear: both;
+}
+header{
+  width: 100%;
+  float: left;
+}
+.button-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 15px;
+  width: 80%;
+}
+button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  margin: 4px 2px;
+  text-decoration: none;
+  cursor: pointer; 
+}
+.title {
+  float: left;
+  width: 20%;
+}
+.container {
+  clear: both;
+}
