@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login Result</title>
+        <title>Login Page</title>
         <meta charset="UTF-8">
         <meta name="description" content="A PHP/MySQL Project for School">
         <meta name="keywords" content="HTML,CSS,PHP">
@@ -45,66 +45,57 @@
                         $password = "root";
                         $dbname = "blog_project";
 
-                        $formusername=$_POST['username'];
-                        $formpassword=$_POST['password'];
-
-                        if ($formusername == NULL || $formpassword == NULL) {
-                            echo "<p style='text-align: center;'>Please enter username and password to login.</p>";
-                        } elseif ($formusername == "" || $formpassword == "") {
+                        $formusername=trim($_POST['username']);
+                        $formpassword=trim($_POST['password']);
+                        
+                        if (!$formusername || !$formpassword) {
                             echo "<p style='text-align: center;'>Please enter username and password to login.</p>";
                         } else {
-                            // provided code to disable login attempts after 3 failures.
-                        // This may belong in another section of the script.
-                            if (isset($_COOKIE['login'])) {
-                                if ($_COOKIE['login'] < 3) {
-                                    $attempts = $_COOKIE['login'] + 1;
-                                    setcookie('login',$attempts,time()+60*10);
-                                    // Create connection
-                                    $conn = new mysqli($servername, $username, $password, $dbname);
-                                    // Check connection
-                                    if ($conn->connect_error) {
-                                        die("Connection failed: " . $conn->connect_error);
-                                    } 
-                                    
-                                    $sql = <<<SQL
-                                        SELECT First_name
-                                        FROM `users`, `passwords`
-                                        WHERE users.User_id = passwords.User_id 
-                                        AND ?=users.User_name
-                                        AND ?=passwords.User_password
-SQL;
-                                    // setup and execute prepared statement
-                                    $stmt = $conn->prepare($sql);
-                                    $stmt->bind_param('ss', $formusername, $formpassword);
-                                    $stmt->execute();
-                                    $stmt->store_result();
-                                    $stmt->bind_result($First_name);
-
-                                    switch ($stmt->num_rows) {
-                                        case 0:
-                                            echo "<p style='text-align: center';>Login Failed. Incorrect username or password. If you are not a user, <a href='registration.html'>click here to register.</a></p>";
-                                            break;
-                                        case 1:
-                                            $row = $stmt->fetch();
-                                            echo "<p style='text-align: center;'>Login Succeeded. ";
-                                            echo "Welcome to the blog, " . $First_name . ".</p>";
-                                            break;
-                                        case 2:
-                                            echo "There are multiple users registered";
-                                            break;
-                                        default:
-                                            echo "Error. Please try again.";
-                                    }
-                                    $stmt->free_result();
-                                    $conn->close();
-                                    
-                                } else {echo "<p style='text-align: center; color: red;'>You are banned for 10 minutes. Please try again later.";}
-                            } else {setcookie('login',1,time()+60*10);}
+                            // Create connection
+                            $conn = new mysqli($servername, $username, $password, $dbname);
+                            // Check connection
+                            if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                            } 
                             
-                        }
-                        
+                            $sql = <<<SQL
+                                SELECT First_name
+                                FROM `users`, `passwords`
+                                WHERE users.User_id = passwords.User_id 
+                                AND ?=users.User_name
+                                AND ?=passwords.User_password
+SQL;
+                            // setup and execute prepared statement
+                            $stmt = $conn->prepare($sql);
+                            $stmt->bind_param('ss', $formusername, $formpassword);
+                            $stmt->execute();
+                            $stmt->store_result();
+                            $stmt->bind_result($First_name);
 
-                        
+                            switch ($stmt->num_rows) {
+                                case 0:
+                                    if (isset($_COOKIE['login'])) {
+                                        if ($_COOKIE['login'] < 3) {
+                                            $attempts = $_COOKIE['login'] + 1;
+                                            setcookie('login',$attempts,time()+60*10);
+                                            echo "<p style='text-align: center';>Login Failed. Incorrect username or password. If you are not a user, <a href='registration.html'>click here to register.</a></p>";
+                                        } else {echo "<p style='text-align: center; color: red;'>You are banned for 10 minutes. Please try again later.";}
+                                    } else {setcookie('login',1,time()+60*10);}
+                                    break;
+                                case 1:
+                                    $row = $stmt->fetch();
+                                    echo "<p style='text-align: center;'>Login Succeeded. ";
+                                    echo "Welcome to the blog, " . $First_name . ".</p>";
+                                    break;
+                                case 2:
+                                    echo "There are multiple users registered";
+                                    break;
+                                default:
+                                    echo "Error. Please try again.";
+                            }
+                            $stmt->free_result();
+                            $conn->close();                            
+                        } 
                     ?>
                 </div>
             </div>
