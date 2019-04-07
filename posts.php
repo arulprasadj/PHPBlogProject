@@ -12,7 +12,7 @@ if (isset($_POST['title'])) {
     if (!$title == NULL || !$content == NULL) {
         $insert = "INSERT INTO posts VALUES (NULL, '".$title."', '".$content."', '".$date."')";
         if ($conn->query($insert) === TRUE) {
-            echo "<div style='border: 1px solid black; text-align: right;'>One post inserted into the database</div>";
+            echo "<div style='text-align: right; color: green;'>One post inserted into the database</div>";
         } 
     }
 }
