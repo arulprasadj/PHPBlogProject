@@ -1,8 +1,7 @@
 /* I wanted it centered so.... 
 Then I got a little carried away and added some stuff to
-make it look less awful.*/
+make it look less awful than plain html.*/
 
-/* BORDER BOX FIX - I use a lot of padding and stuff */
 html {
   box-sizing: border-box;
 }
