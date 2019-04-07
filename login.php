@@ -1,4 +1,5 @@
 <?php
+    // session_start() is included in connect.php
     require_once('connect.php');
 
     if(!empty($_POST['login-button'])){ // checking to see if login-button is set...
