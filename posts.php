@@ -9,10 +9,11 @@ if (isset($_POST['title'])) {
     $content=$_POST["content"];
     $date = date("Y-m-d");
     
+    // currently not sanitizing user input. Not good. Will refactor this.
     if (!$title == NULL || !$content == NULL) {
         $insert = "INSERT INTO posts VALUES (NULL, '".$title."', '".$content."', '".$date."')";
         if ($conn->query($insert) === TRUE) {
-            echo "<div style='text-align: right; color: green;'>One post inserted into the database</div>";
+            $confirm = "One post inserted into the database.";
         } 
     }
 }
@@ -69,7 +70,7 @@ if (isset($_POST['title'])) {
                 <form action="posts.php" method="POST">
                     <input type="text" name="title" placeholder="Enter a title..."><br>
                     <textarea name="content" rows="10" cols="60" placeholder="Enter your post here..."></textarea><br>
-                    <input type="submit" value="Post"><br>
+                    <input type="submit" value="Post"><small style='text-align: right; color: green;'><?php echo $confirm; ?></small><br>
                 </form>
                 <div class="posts">
                     <?php

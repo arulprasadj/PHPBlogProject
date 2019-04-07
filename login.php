@@ -46,7 +46,7 @@ SQL;
                         $row = $stmt->fetch();
                         $_SESSION['loggedin'] = true;
                         $_SESSION['User_name'] = $User_name;
-                        header('location: posts.php');
+                        header('location: posts.php'); // I learned to use header so that I could direct user to posts.php without using form action.
                         exit();
                     break;
                 case 2:
