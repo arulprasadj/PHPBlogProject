@@ -8,7 +8,13 @@ DEFINE('DB_name', 'blog_project');
 
 $conn = new mysqli();
 $conn->init();
-$conn->ssl_set(NULL,NULL, "/var/www/html/BaltimoreCyberTrustRoot.crt.pem", NULL, NULL);
+
+// below contains certificate path required in azure 
+$conn->ssl_set(NULL,NULL, "BaltimoreCyberTrustRoot.crt.pem", NULL, NULL);
+
+// below is certificate path for local testing
+// $conn->ssl_set(NULL,NULL, "C:/ssl/BaltimoreCyberTrustRoot.crt.pem", NULL, NULL);
+
 $conn->real_connect(DB_host, DB_user, DB_PWD, DB_name, 3306, MYSQLI_CLIENT_SSL);
 
 if ($conn->connect_error) {
