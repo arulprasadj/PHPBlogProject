@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-DEFINE('DB_user', 'jackh@jackvhallmysql');
-DEFINE('DB_PWD', 'Rivers360');
+DEFINE('DB_user', 'phpappuser@jackvhallmysql');
+DEFINE('DB_PWD', 'MySQLAzure2019');
 DEFINE('DB_host', 'jackvhallmysql.mysql.database.azure.com');
 DEFINE('DB_name', 'blog_project');
 
