@@ -1,10 +1,4 @@
-<!DOCTYPE html>
-<HTML>
-    <head>
-        <title>User Registration Form</title>
-    </head>
-    <link rel="stylesheet" type="text/css" href="_styles/styles.css">
-    <body>
+<?php include 'shared/header.php'; ?>
         <div class="container">
         <h1>User Registration</h1>
         <sub>Please fill out this form to create an account.</sub>
@@ -35,5 +29,4 @@
             </table>
         </form>
         </div>
-    </body>
-</HTML>
+<?php include 'footer.php'; ?>

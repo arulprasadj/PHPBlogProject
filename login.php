@@ -1,6 +1,6 @@
 <?php
     // session_start() is included in connect.php
-    include('connect.php');
+    include('config.php');
 
     if(!empty($_POST['login-button'])){ // checking to see if login-button is set...
         $errors = array(); // declaring array
@@ -62,22 +62,10 @@ SQL;
     }
 
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Login Page</title>
-        <meta charset="UTF-8">
-        <meta name="description" content="A PHP/MySQL Project for School">
-        <meta name="keywords" content="HTML,CSS,PHP">
-        <meta name="author" content="Jack Vincent">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="_styles/styles.css">
-    </head>
-    <body>
-        <header>
+<?php include 'shared/header.php'; ?>
+        <div class="header">
             <h1>Welcome.</h1>
-        </header>
-        <main>
+        </div>
             <div class="container">
                 <form action="login.php" method="POST">
                 <fieldset>
@@ -112,6 +100,4 @@ SQL;
                    ?>
                 </div>
             </div>
-        </main>
-    </body>
-</html>
+<?php include 'shared/footer.php'; ?>

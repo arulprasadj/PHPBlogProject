@@ -1,5 +1,5 @@
 <?php
-include 'connect.php';
+include 'config.php';
 if(empty($_SESSION['loggedin'])){ //if $_SESSION['loggedin'] doesn't exist that means user didn't login. Therefore redirect them to login page
     header('location: login.php');
     exit();
@@ -18,18 +18,7 @@ if (isset($_POST['title'])) {
     }
 }
 ?> 
-<!DOCTYPE html>
-<html>
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <meta name="description" content="A blog/cms project for class.">
-        <meta name="keywords" content="HTML,CSS,PHP, MySQL">
-        <meta name="author" content="Jack Vincent">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- <link rel="stylesheet" href="_styles/normalize.css"> --> 
-        <!-- Browser styles were messing up my spacing so I normalized, but then fixed without it. Either way, I left it in just in case I need it in the future. -->
-        <link rel="stylesheet" href="_styles/styles.css">
+<?php include 'shared/header.php'; ?>
         <style> 
             textarea {
                 width: 100%;
@@ -48,9 +37,7 @@ if (isset($_POST['title'])) {
                 margin-top: 70px;
             }
         </style>
-    </head>
-    <body>
-        <header>
+        <div class="header">
             <div class="title" style="margin-bottom: 20px;">                     
                 <h2>My Blog Posts</h2>
                 <label>by GCU Student Jack Hall</label>
@@ -64,8 +51,7 @@ if (isset($_POST['title'])) {
                  }
                   ?>
                 </p></div>
-        </header>
-        <main>
+            </div>
             <div class="container main">
                 <form action="posts.php" method="POST">
                     <input type="text" name="title" placeholder="Enter a title..."><br>
@@ -96,7 +82,5 @@ SQL;
                     ?>
                 </div>
             </div>
-        </main>
-    </body>
-</html>
+<?php include 'shared/footer.php'; ?>
  

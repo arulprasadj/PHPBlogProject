@@ -1,5 +1,5 @@
 <?php
-    require_once('connect.php');
+    require_once('config.php');
     $firstname = $_POST["firstname"];
     $lastname = $_POST["lastname"];
     $email = $_POST["email"];
@@ -19,13 +19,7 @@
     
     $conn->close();
     ?>
-<html>
-    <head>
-        <title>Registration Complete</title>
-        <link rel="stylesheet" href="../_styles/styles.css">
-    </head>
-    <body>
+<?php include 'shared/header.php'; ?>
         <h1>Registration Complete<h1>
         <p><?php echo $result; ?>
-    </body>
-</html>
+<?php include 'shared/footer.php'; ?>
