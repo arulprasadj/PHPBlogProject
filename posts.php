@@ -51,19 +51,19 @@ if (isset($_POST['title'])) {
                     echo "NULL";
                  }
                   ?>
-                </p></div>
+                </p><p><a href="categories.php">Manage Categories</a> | <a href="manageposts.php">Manage Posts</a> | <a href="logout.php">Logout</a></p></div>
             </div>
             <div class="container main">
                 <form action="posts.php" method="POST">
                     <input type="text" name="title" placeholder="Enter a title..."><br>
                     <textarea name="content" rows="10" cols="60" placeholder="Enter your post here..."></textarea><br>
-                    <input type="text" name="category" placeholder="Enter a category..." style="width:25%; float: right;"><br>
-                    <select name="category_id">
+                    <select name="category_id" style="width: 25%;" >
+                        <option value="" disabled selected>Select Category</option>
                         <?php 
                             $sql = 'SELECT * FROM `categories` WHERE `active_flag`="y"';
-                            $res = mysqli_query($conn,$sql);
-                            while($row = mysqli_fetch_object($res)){
-                                echo('<option value="'.$row->category_id.'">'.$row->category_name.'</value>');
+                            $res = $conn->query($sql);
+                            while($row = $res->fetch_assoc()){
+                                echo "<option value=".$row['category_id'].">".$row['category_name']."</value>";
                             }
                         ?>
                     </select><br>

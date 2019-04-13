@@ -31,19 +31,26 @@ if(!empty($_POST)){
         $sql = "UPDATE `CATEGORIES` SET `category_name`='".$category_name."',`created_by`='".$created_by."',`active_flag`='".$active_flag."' WHERE `category_id`=".$category_id;
         mysqli_query($conn,$sql);
         header('location: categories.php');
+    }else if($formType == 'delete'){
+        $category_id = $_POST['category_id'];
+        $sql = "DELETE FROM `CATEGORIES` WHERE `category_id`=".$category_id;
+        mysqli_query($conn,$sql);
+        header('location: categories.php');
     }
 }
 
 if(empty($action)){
     //List
 ?>
-<a href="categories.php?action=add">Add</a><br>
-    <table border="1">
+<?php include_once 'shared/header.php'; ?>
+<h1>Categories</h1>
+
+    <table>
         <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Created Date</th>
-            <th>Author</th>
+            <th>Author ID</th>
             <th>Status</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -53,7 +60,8 @@ if(empty($action)){
     $res = mysqli_query($conn,$sql);
     while($row = mysqli_fetch_object($res)){
 ?>
-        <tr>
+        <!-- learning php short-hand print syntax -->
+        <tr style="text-align: center;">
             <td><?= $row->category_id ?></td>
             <td><?= $row->category_name ?></td>
             <td><?= $row->created_date ?></td>
@@ -72,7 +80,7 @@ if(empty($action)){
         
         <select name="active_flag">
             <option value="y">Active</option>
-            <option value="n">Not Active</option>
+            <option value="n">Inactive</option>
         </select><br><br>
 
         <input type="submit" value="Add">
@@ -98,5 +106,14 @@ if(empty($action)){
 <?php
 }else if($action == 'delete'){
     //Del
-    echo 'delete';
+    echo 'Category deleted.<br>';
+    echo "<a href='categories.php'>Return</a>";
 }
+?>
+</table><br><br>
+<?php
+if(empty($_GET)){
+    echo "<a href='categories.php?action=add'><button>Add a New Category</button></a><br>";
+}
+?>
+<?php include_once 'shared/footer.php'; ?>
