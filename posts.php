@@ -8,11 +8,11 @@ if (isset($_POST['title'])) {
     $title=trim($_POST["title"]);
     $content=$_POST["content"];
     $date = date("Y-m-d");
-    $category=trim($_POST['category']);
+    $category=trim($_POST['category_id']);
     
     // currently not sanitizing user input. Not good. Will refactor this.
     if (!$title == NULL || !$content == NULL) {
-        $insert = "INSERT INTO posts VALUES (NULL, '".$title."', '".$content."', '".$date."', '".$_SESSION['User_name']."')";
+        $insert = "INSERT INTO posts VALUES (NULL, '".$title."', '".$content."', '".$date."', '".$_SESSION['User_name']."', '".$category."')";
         if ($conn->query($insert) === TRUE) {
             $confirm = "One post inserted into the database.";
         } 
@@ -80,10 +80,13 @@ SQL;
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
+                            $sql = "SELECT `category_name` from `categories` WHERE '".$row['category_id']."'=`category_id`";
+                            $res = $conn->query($sql);
+                            $cat = $res->fetch_assoc();
                             echo "<table>";
                             echo "<tr><td style='width: 70%;'><h3>".$row['Title']."</h3></td><td style='text-align: right;'><small> Posted on: ".$row['Date']." by ".$row['Author']."</small></td></tr>";
                             echo "<tr><td colspan='2'>".$row['Content']."</td></tr>";
-                            echo "<tr><td colspan='2' style='border-bottom: 0px; font-size: .75em;'>Category: </tr>";
+                            echo "<tr><td colspan='2' style='border-bottom: 0px; font-size: .9em;color: #8DB38B;'>Category: ".$cat['category_name']."</tr>";
                             echo "</table>";
                         }
                     } else {
