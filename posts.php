@@ -58,6 +58,15 @@ if (isset($_POST['title'])) {
                     <input type="text" name="title" placeholder="Enter a title..."><br>
                     <textarea name="content" rows="10" cols="60" placeholder="Enter your post here..."></textarea><br>
                     <input type="text" name="category" placeholder="Enter a category..." style="width:25%; float: right;"><br>
+                    <select name="category_id">
+                        <?php 
+                            $sql = 'SELECT * FROM `categories` WHERE `active_flag`="y"';
+                            $res = mysqli_query($conn,$sql);
+                            while($row = mysqli_fetch_object($res)){
+                                echo('<option value="'.$row->category_id.'">'.$row->category_name.'</value>');
+                            }
+                        ?>
+                    </select><br>
                     <input type="submit" value="Post"><small style='text-align: right; color: green; clear: both;'><?php echo $confirm; ?></small><br>
                 </form>
                 <div class="posts">
