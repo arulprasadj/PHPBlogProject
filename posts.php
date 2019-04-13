@@ -8,6 +8,7 @@ if (isset($_POST['title'])) {
     $title=trim($_POST["title"]);
     $content=$_POST["content"];
     $date = date("Y-m-d");
+    $category=trim($_POST['category']);
     
     // currently not sanitizing user input. Not good. Will refactor this.
     if (!$title == NULL || !$content == NULL) {
@@ -18,7 +19,7 @@ if (isset($_POST['title'])) {
     }
 }
 ?> 
-<?php include 'shared/header.php'; ?>
+<?php include_once 'shared/header.php'; ?>
         <style> 
             textarea {
                 width: 100%;
@@ -56,7 +57,8 @@ if (isset($_POST['title'])) {
                 <form action="posts.php" method="POST">
                     <input type="text" name="title" placeholder="Enter a title..."><br>
                     <textarea name="content" rows="10" cols="60" placeholder="Enter your post here..."></textarea><br>
-                    <input type="submit" value="Post"><small style='text-align: right; color: green;'><?php echo $confirm; ?></small><br>
+                    <input type="text" name="category" placeholder="Enter a category..." style="width:25%; float: right;"><br>
+                    <input type="submit" value="Post"><small style='text-align: right; color: green; clear: both;'><?php echo $confirm; ?></small><br>
                 </form>
                 <div class="posts">
                     <?php
@@ -72,7 +74,7 @@ SQL;
                             echo "<table>";
                             echo "<tr><td style='width: 70%;'><h3>".$row['Title']."</h3></td><td style='text-align: right;'><small> Posted on: ".$row['Date']." by ".$row['Author']."</small></td></tr>";
                             echo "<tr><td colspan='2'>".$row['Content']."</td></tr>";
-                            echo "<tr><td colspan='2' style='border-bottom: 0px;'><small>Categories</small></tr>";
+                            echo "<tr><td colspan='2' style='border-bottom: 0px; font-size: .75em;'>Category: </tr>";
                             echo "</table>";
                         }
                     } else {
@@ -83,5 +85,5 @@ SQL;
                     ?>
                 </div>
             </div>
-<?php include 'shared/footer.php'; ?>
+<?php include_once 'shared/footer.php'; ?>
  

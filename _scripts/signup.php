@@ -19,7 +19,7 @@
     
     $conn->close();
     ?>
-<?php include 'shared/header.php'; ?>
+<?php include_once 'shared/header.php'; ?>
         <h1>Registration Complete<h1>
         <p><?php echo $result; ?>
-<?php include 'shared/footer.php'; ?>
+<?php include_once 'shared/footer.php'; ?>

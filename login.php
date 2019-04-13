@@ -62,7 +62,7 @@ SQL;
     }
 
 ?>
-<?php include 'shared/header.php'; ?>
+<?php include_once 'shared/header.php'; ?>
         <div class="header">
             <h1>Welcome.</h1>
         </div>
@@ -100,4 +100,4 @@ SQL;
                    ?>
                 </div>
             </div>
-<?php include 'shared/footer.php'; ?>
+<?php include_once 'shared/footer.php'; ?>
