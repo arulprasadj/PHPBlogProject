@@ -10,4 +10,3 @@
         <link rel="stylesheet" href="_styles/styles.css">
     </head>
     <body>
-        <main>

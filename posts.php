@@ -11,7 +11,7 @@ if (isset($_POST['title'])) {
     
     // currently not sanitizing user input. Not good. Will refactor this.
     if (!$title == NULL || !$content == NULL) {
-        $insert = "INSERT INTO posts VALUES (NULL, '".$title."', '".$content."', '".$date."')";
+        $insert = "INSERT INTO posts VALUES (NULL, '".$title."', '".$content."', '".$date."', '".$_SESSION['User_name']."')";
         if ($conn->query($insert) === TRUE) {
             $confirm = "One post inserted into the database.";
         } 
@@ -70,8 +70,9 @@ SQL;
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             echo "<table>";
-                            echo "<tr><td style='width: 70%;'><h3>".$row['Title']."</h3></td><td style='text-align: right;'><small> Posted on: ".$row['Date']."</small></td></tr>";
+                            echo "<tr><td style='width: 70%;'><h3>".$row['Title']."</h3></td><td style='text-align: right;'><small> Posted on: ".$row['Date']." by ".$row['Author']."</small></td></tr>";
                             echo "<tr><td colspan='2'>".$row['Content']."</td></tr>";
+                            echo "<tr><td colspan='2' style='border-bottom: 0px;'><small>Categories</small></tr>";
                             echo "</table>";
                         }
                     } else {
