@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Login Page</title>
+        <title>Jack's Blog Project</title>
         <meta charset="UTF-8">
         <meta name="description" content="A PHP/MySQL Project for School">
         <meta name="keywords" content="HTML,CSS,PHP">
