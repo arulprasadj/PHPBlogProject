@@ -82,7 +82,7 @@ SQL;
                             </tr>
                             <tr>
                                 <td></td>
-                                <td><input type="submit" name="login-button" value="Login" style="float: left; margin-right: 20px;"><p>Not a user? <a href="registration.html">Click here to Register.</a></p></td>
+                                <td><input type="submit" name="login-button" value="Login" style="float: left; margin-right: 20px;"><p>Not a user? <a href="registration.php">Click here to Register.</a></p></td>
                             </tr>
                     </table>
                 </fieldset>
