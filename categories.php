@@ -1,3 +1,4 @@
+<?php include_once 'shared/header.php'; ?>
 <?php
 include 'config.php';
 if(empty($_SESSION['loggedin'])){ //if $_SESSION['loggedin'] doesn't exist that means user didn't login. Therefore redirect them to login page
@@ -42,7 +43,6 @@ if(!empty($_POST)){
 if(empty($action)){
     //List
 ?>
-<?php include_once 'shared/header.php'; ?>
 <h1>Categories</h1>
 
     <table>
@@ -60,7 +60,6 @@ if(empty($action)){
     $res = $conn->query($sql);
     while($row = $res->fetch_assoc()){
 ?>
-        <!-- learning php short-hand print syntax -->
         <tr style="text-align: center;">
             <td><?= $row['category_id'] ?></td>
             <td><?= $row['category_name'] ?></td>

@@ -63,7 +63,7 @@ if (isset($_POST['title'])) {
                             $sql = 'SELECT * FROM `categories` WHERE `active_flag`="y"';
                             $res = $conn->query($sql);
                             while($row = $res->fetch_assoc()){
-                                echo "<option value=".$row['category_id'].">".$row['category_name']."</value>";
+                                echo "<option value=".$row['category_id'].">".$row['category_name']."</option>";
                             }
                         ?>
                     </select><br>
