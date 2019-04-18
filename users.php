@@ -22,14 +22,17 @@ if(!empty($_POST)){
     $user_id = $_POST['User_id'];
     $First_name = $_POST['First_name'];
     $Last_name = $_POST['Last_name'];
-    $email = $_POST['User_email'];
+    $User_email = $_POST['User_email'];
     $User_name = $_POST['User_name'];
     $User_password = $_POST['User_password'];
-    $created_by = $_SESSION['User_name'];
-    $created_date = date("Y-m-d H:i:s");
+    $permission = $_POST['permission'];
     if($formType == 'add'){
-        $sql = "INSERT INTO `users` (`User_name`,`First_name`,`Last_name`,`User_email`) VALUES ('".$User_name."','".$created_date."','".$created_by."','".$active_flag."')";
-        $conn->query($sql);
+        $sql = "INSERT INTO `users` (`User_name`,`First_name`,`Last_name`,`User_email`,`permission`) VALUES ('".$User_name."',
+        '".$First_name."','".$Last_name."','".$User_email."','".$permission."')";
+        if ($conn->query($sql) === TRUE) {
+            $last_id = $conn->insert_id;
+            $sql = "INSERT INTO `passwords` (`User_password`, `User_id`) VALUES ('".$User_password."', '".$last_id."')";
+            $conn->query($sql);
         header('location: users.php');
     }else if($formType == 'edit'){
         $sql = "UPDATE `users` SET `category_name`='".$category_name."',`created_by`='".$created_by."',`active_flag`='".$active_flag."' WHERE `User_id`=".$user_id;
@@ -78,7 +81,7 @@ if(empty($action)){
 ?>
     </table>
     <br><br>
-    <a href='users.php?action=add'><button>Add a New Category</button></a><br>
+    <a href='users.php?action=add'><button>Add a User</button></a><br>
 <?php 
 }else if($action == 'add'){
 ?>
@@ -92,7 +95,7 @@ if(empty($action)){
         <input type="text" placeholder="JaneDoe@myhost.com" name="User_email" required><br>
         <label for="User_name">Display Name</label><br>
         <input type="text" name="User_name" placeholder="jdoe99" required><br>
-        <label for="password">Password</label><br>
+        <label for="User_password">Password</label><br>
         <input type="password" placeholder="" name="User_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
                             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required><br>
 
