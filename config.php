@@ -18,4 +18,12 @@ if ($conn->connect_error) {
     die ("Could not connect. ". $conn->connect_error);
 }
 
+$PERMISSION_TYPES = array(
+    1 => 'Admin', 
+    2 => 'User',
+);
+$PERMISSION_ADMIN = 1;
+$PERMISSION_USER = 2;
+
+
 ?>

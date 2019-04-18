@@ -45,7 +45,7 @@ if(empty($action)){
 ?>
 <h1>Categories</h1>
 
-    <table>
+    <table border="1">
         <tr>
             <th>ID</th>
             <th>Name</th>
@@ -66,11 +66,16 @@ if(empty($action)){
             <td><?= $row['created_date'] ?></td>
             <td><?= $row['created_by'] ?></td>
             <td><?= ($row['active_flag'] == 'y')? 'Active' : 'Not Active' ?></td>
-            <td><a href="categories.php?action=edit&id=<?= $row['category_id'] ?>">Edit</a></td>
-            <td><a href="categories.php?action=delete&id=<?= $row['category_id'] ?>">Delete</a></td>
+            <td><a href="categories.php?action=edit&id=<?= $row['category_id'] ?>" class="button">Edit</a></td>
+            <td><a href="categories.php?action=delete&id=<?= $row['category_id'] ?>" class="button">Delete</a></td>
         </tr>
 <?php
     }
+?>
+    </table>
+    <br><br>
+    <a href='categories.php?action=add'><button>Add a New Category</button></a><br>
+<?php 
 }else if($action == 'add'){
 ?>
     <form method="POST">
@@ -115,12 +120,6 @@ if(empty($action)){
         <input type="submit" value="Delete">
     </form>
     <?php
-}
-?>
-</table><br><br>
-<?php
-if(empty($_GET)){
-    echo "<a href='categories.php?action=add'><button>Add a New Category</button></a><br>";
 }
 ?>
 <?php include_once 'shared/footer.php'; ?>

@@ -1,7 +1,4 @@
-/* I wanted it centered so.... 
-Then I got a little carried away and added some stuff to
-make it look less awful than plain html.*/
-
+/* Border-box fix */
 html {
   box-sizing: border-box;
 }
@@ -54,7 +51,7 @@ table tr td:first-child {
     width:140px;
 }
 
-/*--------------------- GENERAL TEXT STYLES ----------------------*/
+/*--------------------- GENERAL TEXT AND BUTTON STYLES ----------------------*/
 p {
   font-size: 1.2em;
 }
@@ -73,6 +70,7 @@ label {
   margin-top: 15px;
   width: 80%;
 }
+.button,
 button {
   background-color: #4CAF50;
   border: none;
@@ -81,6 +79,7 @@ button {
   margin: 4px 2px;
   text-decoration: none;
   cursor: pointer; 
+  display: inline-block;
 }
 .title {
   float: left;

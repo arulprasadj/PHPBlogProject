@@ -52,7 +52,7 @@ if(empty($action)){
 ?>
 <h1>My Posts</h1>
 
-    <table>
+    <table border="1">
         <tr>
             <th>ID</th>
             <th>Title</th>
@@ -64,26 +64,19 @@ if(empty($action)){
             <th>Delete</th>
         </tr>
 <?php
-    $sql = 'SELECT * FROM `posts` ';
+    $sql = 'SELECT * FROM `posts` JOIN `categories` ON `posts`.`category_id`=`categories`.`category_id`';
     $res = $conn->query($sql);
     while($row = $res->fetch_assoc()){
 ?>
-        <!-- learning php short-hand print syntax -->
         <tr style="text-align: center;">
             <td><?= $row['ID'] ?></td>
             <td><?= $row['Title'] ?></td>
             <td><?= substr($row['Content'], 0, 100) . "..." ?></td>
             <td><?= $row['Date'] ?></td>
             <td><?= $row['Author'] ?></td>
-            <?php
-                $sql2 = "SELECT * FROM `categories` WHERE `category_id`=".$row['category_id'];
-                $res2 = $conn->query($sql2);
-                while ($cat = $res2->fetch_assoc()){
-                    echo "<td>".$cat['category_name']."</td>";
-                }
-            ?>
-            <td><a href="manageposts.php?action=edit&id=<?= $row['ID'] ?>">Edit</a></td>
-            <td><a href="manageposts.php?action=delete&id=<?= $row['ID'] ?>">Delete</a></td>
+            <td><?= $row['category_name'] ?></td>
+            <td><a href="manageposts.php?action=edit&id=<?= $row['ID'] ?>" class="button">Edit</a></td>
+            <td><a href="manageposts.php?action=delete&id=<?= $row['ID'] ?>" class="button">Delete</a></td>
         </tr>
 
 <?php
