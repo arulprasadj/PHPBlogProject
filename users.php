@@ -33,10 +33,14 @@ if(!empty($_POST)){
             $last_id = $conn->insert_id;
             $sql = "INSERT INTO `passwords` (`User_password`, `User_id`) VALUES ('".$User_password."', '".$last_id."')";
             $conn->query($sql);
-        header('location: users.php');
+            header('location: users.php');
+        }
     }else if($formType == 'edit'){
-        $sql = "UPDATE `users` SET `category_name`='".$category_name."',`created_by`='".$created_by."',`active_flag`='".$active_flag."' WHERE `User_id`=".$user_id;
-        $conn->query($sql);
+        $sql = "UPDATE `users` SET `User_name`='".$User_name."',`First_name`='".$First_name."',`Last_name`='".$Last_name."',
+        `User_email`='".$User_email."',`permission`='".$permission."' WHERE `User_id`=".$user_id;
+        if($conn->query($sql) === TRUE) {
+            $sql = "UPDATE `passwords` SET `User_password`='".$User_password."' WHERE `User_id`=".$user_id;
+        }
         header('location: users.php');
     }else if($formType == 'delete'){
         $sql = "DELETE FROM `users` WHERE `User_id`=".$user_id;
@@ -44,6 +48,7 @@ if(!empty($_POST)){
         header('location: users.php');
     }
 }
+
 
 if(empty($action)){
     //List
@@ -85,21 +90,20 @@ if(empty($action)){
 <?php 
 }else if($action == 'add'){
 ?>
+    <h1>Add User</h1>
     <form method="POST">
         <input type="hidden" name="form-type" value="add">
-        <label for="First_name">First Name</label><br>
-        <input type="text" placeholder="Jane" name="First_name" required><br>
-        <label for="Last_name">Last Name</label><br>
-        <input type="text" placeholder="Doe" name="Last_name" required><br>
-        <label for="User_email">Email Address</label><br>
-        <input type="text" placeholder="JaneDoe@myhost.com" name="User_email" required><br>
-        <label for="User_name">Display Name</label><br>
-        <input type="text" name="User_name" placeholder="jdoe99" required><br>
-        <label for="User_password">Password</label><br>
+        <label for="First_name">First Name</label>
+        <input type="text" placeholder="Jane" name="First_name" required>
+        <label for="Last_name">Last Name</label>
+        <input type="text" placeholder="Doe" name="Last_name" required>
+        <label for="User_email">Email Address</label>
+        <input type="text" placeholder="JaneDoe@myhost.com" name="User_email" required>
+        <label for="User_name">Display Name</label>
+        <input type="text" name="User_name" placeholder="jdoe99" required>
+        <label for="User_password">Password</label>
         <input type="password" placeholder="" name="User_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
-                            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required><br>
-
-        
+                            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
         <label>Permission</label>
         <select name="permission" required>
             <option selected disabled></option>
@@ -110,33 +114,40 @@ if(empty($action)){
             ?>
         </select>
 
-        <input type="submit" value="Add">
+        <input type="submit" value="Add"><a href="users.php" class="button">Cancel</a>
     </form>
 <?php
 }else if($action == 'edit'){
-    $sql = 'SELECT * FROM `users` WHERE `User_id`='.$id;
+    $sql = 'SELECT * FROM `users` JOIN `passwords` ON `users`.`User_id`=`passwords`.`User_id` WHERE `users`.`User_id`='.$id;
     $res = $conn->query($sql);
     $row = $res->fetch_assoc();
     ?>
+    <h1>Edit User</h1>
     <form method="POST">
         <input type="hidden" name="form-type" value="edit">
         <input type="hidden" name="User_id" value="<?=$row['User_id'] ?>">
-        <input type="text" name="User_name" placeholder="Username"><br><br>
-        
+        <label for="First_name">First Name</label>
+        <input type="text" name="First_name" placeholder="Username" value="<?=$row['First_name'] ?>" required>
+        <label for="Last_name">Last Name</label>
+        <input type="text" placeholder="Doe" name="Last_name" value="<?=$row['Last_name'] ?>" required>
+        <input type="text" placeholder="JaneDoe@myhost.com" name="User_email" value="<?=$row['User_email'] ?>" required>
+        <input type="text" name="User_name" placeholder="jdoe99" value="<?=$row['User_name'] ?>" required>
+        <input type="password" name="User_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                            title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
+                            value="<?=$row['User_password'] ?>" required><br>
         <label>Permission</label>
         <select name="permission">
             <?php 
                 foreach($PERMISSION_TYPES as $index => $name){
                     $selected = '';
-                    if($index === $row['permission']){
+                    if($index == $row['permission']){  // did not with with strict equality? ===
                         $selected = 'selected';
                     }
                     echo('<option value="'.$index.'" '.$selected.'>'.$name.'</option>');
                 }
             ?>
         </select>
-
-        <input type="submit" value="Update">
+        <input type="submit" value="Update"><a href="users.php" class="button">Cancel</a>
     </form>
 <?php
 }else if($action == 'delete'){
@@ -148,7 +159,7 @@ if(empty($action)){
         <input type="hidden" name="form-type" value="delete"><br>
         <input type="hidden" name="User_id" value="<?=$row['User_id'] ?>">
         <p>Are you sure you want to delete this user?</p>
-        <input type="submit" value="Delete">
+        <input type="submit" value="Delete"><a href="users.php" class="button">Cancel</a>
     </form>
     <?php
 }
