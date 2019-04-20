@@ -5,6 +5,10 @@ if(empty($_SESSION['loggedin'])){ //if $_SESSION['loggedin'] doesn't exist that 
     header('location: login.php');
     exit();
 }
+if($_SESSION['user_role'] !== $PERMISSION_ADMIN){ //if $_SESSION['user_role'] does not indicate $PERMISSION_ADMIN, redirect.
+    header('location: posts.php');
+    exit();
+}
 
 $action = '';
 if(!empty($_GET['action'])){
@@ -25,10 +29,10 @@ if(!empty($_POST)){
     $User_email = $_POST['User_email'];
     $User_name = $_POST['User_name'];
     $User_password = $_POST['User_password'];
-    $permission = $_POST['permission'];
+    $user_role = $_POST['user_role'];
     if($formType == 'add'){
-        $sql = "INSERT INTO `users` (`User_name`,`First_name`,`Last_name`,`User_email`,`permission`) VALUES ('".$User_name."',
-        '".$First_name."','".$Last_name."','".$User_email."','".$permission."')";
+        $sql = "INSERT INTO `users` (`User_name`,`First_name`,`Last_name`,`User_email`,`user_role`) VALUES ('".$User_name."',
+        '".$First_name."','".$Last_name."','".$User_email."','".$user_role."')";
         if ($conn->query($sql) === TRUE) {
             $last_id = $conn->insert_id;
             $sql = "INSERT INTO `passwords` (`User_password`, `User_id`) VALUES ('".$User_password."', '".$last_id."')";
@@ -37,7 +41,7 @@ if(!empty($_POST)){
         }
     }else if($formType == 'edit'){
         $sql = "UPDATE `users` SET `User_name`='".$User_name."',`First_name`='".$First_name."',`Last_name`='".$Last_name."',
-        `User_email`='".$User_email."',`permission`='".$permission."' WHERE `User_id`=".$user_id;
+        `User_email`='".$User_email."',`user_role`='".$user_role."' WHERE `User_id`=".$user_id;
         if($conn->query($sql) === TRUE) {
             $sql = "UPDATE `passwords` SET `User_password`='".$User_password."' WHERE `User_id`=".$user_id;
         }
@@ -62,7 +66,7 @@ if(empty($action)){
             <th>Firstname</th>
             <th>Lastname</th>
             <th>Email</th>
-            <th>Permission</th>
+            <th>Role</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -77,7 +81,7 @@ if(empty($action)){
             <td><?= $row['First_name'] ?></td>
             <td><?= $row['Last_name'] ?></td>
             <td><?= $row['User_email'] ?></td>
-            <td><?= $PERMISSION_TYPES[$row['permission']] ?></td>
+            <td><?= $PERMISSION_TYPES[$row['user_role']] ?></td>
             <td><a href="users.php?action=edit&id=<?= $row['User_id'] ?>" class="button">Edit</a></td>
             <td><a href="users.php?action=delete&id=<?= $row['User_id'] ?>" class="button">Delete</a></td>
         </tr>
@@ -104,8 +108,8 @@ if(empty($action)){
         <label for="User_password">Password</label>
         <input type="password" placeholder="" name="User_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
                             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
-        <label>Permission</label>
-        <select name="permission" required>
+        <label>Role</label>
+        <select name="user_role" required>
             <option selected disabled></option>
             <?php 
                 foreach($PERMISSION_TYPES as $index => $name){
@@ -135,12 +139,12 @@ if(empty($action)){
         <input type="password" name="User_password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
                             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
                             value="<?=$row['User_password'] ?>" required><br>
-        <label>Permission</label>
-        <select name="permission">
+        <label>Role</label>
+        <select name="user_role">
             <?php 
                 foreach($PERMISSION_TYPES as $index => $name){
                     $selected = '';
-                    if($index == $row['permission']){  // did not with with strict equality? ===
+                    if($index == $row['user_role']){  // did not with with strict equality? ===
                         $selected = 'selected';
                     }
                     echo('<option value="'.$index.'" '.$selected.'>'.$name.'</option>');

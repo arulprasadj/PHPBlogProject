@@ -51,7 +51,9 @@ if (isset($_POST['title'])) {
                     echo "NULL";
                  }
                   ?>
-                </p><p><a href="categories.php">Manage Categories</a> | <a href="manageposts.php">Manage Posts</a> | <a href="logout.php">Logout</a></p></div>
+                </p><p><a href="categories.php">Manage Categories</a> | <a href="manageposts.php">Manage Posts</a> | 
+                <?=($_SESSION['permission'] == $PERMISSION_ADMIN) ? '<a href="users.php">Manage Users</a>' : '' ?>
+                | <a href="logout.php">Logout</a></p></div>
             </div>
             <div class="container main">
                 <form action="posts.php" method="POST">

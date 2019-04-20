@@ -81,6 +81,10 @@ if(empty($action)){
 
 <?php
     }
+?>
+</table><br><br>
+<a href='posts.php'><button>Add a New Post</button></a><br>
+<?php
 }else if($action == 'edit'){
     $sql = 'SELECT * FROM `posts` WHERE `ID`='.$id;
     $res = $conn->query($sql);
@@ -121,12 +125,6 @@ if(empty($action)){
         <input type="submit" value="Delete">
     </form>
     <?php
-}
-?>
-</table><br><br>
-<?php
-if(empty($_GET)){
-    echo "<a href='posts.php'><button>Add a New Post</button></a><br>";
 }
 ?>
 <?php include_once 'shared/footer.php'; ?>

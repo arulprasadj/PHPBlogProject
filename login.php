@@ -16,7 +16,7 @@
             }
         } else {
             $sql = <<<SQL
-                SELECT users.User_name, First_name
+                SELECT users.User_name, First_name, user_role
                 FROM `users`, `passwords`
                 WHERE users.User_id = passwords.User_id 
                 AND ?=users.User_name
@@ -27,7 +27,7 @@ SQL;
             $stmt->bind_param('ss', $formusername, $formpassword);
             $stmt->execute();
             $stmt->store_result();
-            $stmt->bind_result($User_name, $First_name);
+            $stmt->bind_result($User_name, $First_name, $user_role);
 
             switch ($stmt->num_rows) {
                 case 0:
@@ -47,6 +47,7 @@ SQL;
                         $row = $stmt->fetch(); // may not need this
                         $_SESSION['loggedin'] = true;
                         $_SESSION['User_name'] = $User_name;
+                        $_SESSION['user_role'] = $user_role;
                         header('location: posts.php'); // I learned to use header so that I could direct user to posts.php without using form action.
                         exit();
                     break;

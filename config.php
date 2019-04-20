@@ -19,11 +19,11 @@ if ($conn->connect_error) {
 }
 
 $PERMISSION_TYPES = array(
-    1 => 'Admin', 
-    2 => 'User',
+    0 => 'Admin', 
+    1 => 'User',
 );
-$PERMISSION_ADMIN = 1;
-$PERMISSION_USER = 2;
+$PERMISSION_ADMIN = 0;
+$PERMISSION_USER = 1;
 
 
 ?>
