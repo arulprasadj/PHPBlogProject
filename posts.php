@@ -15,7 +15,9 @@ if (isset($_POST['title'])) {
         $insert = "INSERT INTO posts VALUES (NULL, '".$title."', '".$content."', '".$date."', '".$_SESSION['User_name']."', '".$category."')";
         if ($conn->query($insert) === TRUE) {
             $confirm = "One post inserted into the database.";
-        } 
+        }  else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
     }
 }
 ?> 
@@ -52,7 +54,7 @@ if (isset($_POST['title'])) {
                  }
                   ?>
                 </p><p><a href="categories.php">Manage Categories</a> | <a href="manageposts.php">Manage Posts</a> | 
-                <?=($_SESSION['permission'] == $PERMISSION_ADMIN) ? '<a href="users.php">Manage Users</a>' : '' ?>
+                <?=($_SESSION['user_role'] == $PERMISSION_ADMIN) ? '<a href="users.php">Manage Users</a>' : '' ?>
                 | <a href="logout.php">Logout</a></p></div>
             </div>
             <div class="container main">

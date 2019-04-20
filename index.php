@@ -1,3 +1,4 @@
+<?php include 'config.php'; ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,10 +15,7 @@
             <div class="title">                      
                 <h2>My Blog Page</h2>
             </div>
-            <div class="button-wrapper">                      
-                <a href="registration.php" target="_blank"><button>Register</button></a>
-                <a href="login.php"><button>Login</button></a>
-            </div>
+            <?php include 'shared/showTopMenu.php'; ?>
         </header> 
         <main>
             <p>by GCU Student Jack Hall</p>
@@ -26,7 +24,17 @@
 
             </div>
             <div class="container main">
+                <?php
+                if (!empty($_SESSION['loggedin'])) {
+                    ?>
+                    <p>Currently logged in as: <?=$_SESSION['User_name'] ?></p>
+                    <?php
+                } else {
+                ?>
                 <p>This is going to be a productive and helpful learning project.</p>
+                <?php
+                }
+                ?>
             </div>
         </main>
     </body>

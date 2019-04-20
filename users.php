@@ -44,6 +44,7 @@ if(!empty($_POST)){
         `User_email`='".$User_email."',`user_role`='".$user_role."' WHERE `User_id`=".$user_id;
         if($conn->query($sql) === TRUE) {
             $sql = "UPDATE `passwords` SET `User_password`='".$User_password."' WHERE `User_id`=".$user_id;
+            $conn->query($sql);
         }
         header('location: users.php');
     }else if($formType == 'delete'){
