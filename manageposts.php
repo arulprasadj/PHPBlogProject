@@ -64,7 +64,11 @@ if(empty($action)){
             <th>Delete</th>
         </tr>
 <?php
-    $sql = 'SELECT * FROM `posts` JOIN `categories` ON `posts`.`category_id`=`categories`.`category_id`';
+    if ($_SESSION['user_role'] == $PERMISSION_USER) { // will only query for posts by authenticated user if user is not admin.
+        $sql = "SELECT * FROM `posts` JOIN `categories` ON `posts`.`category_id`=`categories`.`category_id` WHERE `Author`='".$_SESSION['User_name']."'";
+    } else if ($_SESSION['user_role'] == $PERMISSION_ADMIN) {
+        $sql = 'SELECT * FROM `posts` JOIN `categories` ON `posts`.`category_id`=`categories`.`category_id`';
+    }
     $res = $conn->query($sql);
     while($row = $res->fetch_assoc()){
 ?>
