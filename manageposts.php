@@ -33,11 +33,11 @@ if(!empty($_POST)){
     $postid = $_POST['id'];
     $title = $_POST['Title'];
     $content = $_POST['Content'];
-    $created_by = $_SESSION['User_name'];
+    $author = $_POST['author'];
     $created_date = date("Y-m-d H:i:s");
     if($formType == 'edit'){
         $category_id = $_POST['category'];
-        $sql = "UPDATE `posts` SET `Title`='".$title."',`Author`='".$created_by."',`Content`='".$content."',`category_id`='".$category_id."' WHERE `ID`=".$postid;
+        $sql = "UPDATE `posts` SET `Title`='".$title."',`Author`='".$author."',`Content`='".$content."',`category_id`='".$category_id."' WHERE `ID`=".$postid;
         $conn->query($sql);
         header('location: manageposts.php');
     }else if($formType == 'delete'){
@@ -93,6 +93,7 @@ if(empty($action)){
     <form method="POST">
         <input type="hidden" name="form-type" value="edit">
         <input type="hidden" name="id" value="<?=$row['ID'] ?>">
+        <input type="hidden" name="author" value="<?=$row['Author'] ?>">
         <label><strong>Title</strong></label><br><input type="text" name="Title" placeholder="Title" value="<?=$row['Title'] ?>"><br>
         <label><strong>Content</strong></label><br><textarea name="Content" rows="10" cols="60"><?=$row['Content'] ?></textarea><br>
         <label><strong>Category</strong></label><br>
