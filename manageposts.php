@@ -39,17 +39,18 @@ if(!empty($_POST)){
         $category_id = $_POST['category'];
         $sql = "UPDATE `posts` SET `Title`='".$title."',`Author`='".$author."',`Content`='".$content."',`category_id`='".$category_id."' WHERE `ID`=".$postid;
         $conn->query($sql);
-        header('location: manageposts.php');
+        header('location: manageposts.php?confirm=update');
     }else if($formType == 'delete'){
         $sql = "DELETE FROM `posts` WHERE `id`=".$postid;
         $conn->query($sql);
-        header('location: manageposts.php');
+        header('location: manageposts.php?confirm=delete');
     }
 }
 
 if(empty($action)){
     //List
 ?>
+
 <h1>My Posts</h1>
 
     <table border="1">
@@ -87,7 +88,16 @@ if(empty($action)){
     }
 ?>
 </table><br><br>
-<a href='posts.php'><button>Add a New Post</button></a><br>
+<a href='posts.php'><button>Add a New Post</button></a>
+<?php
+if (!empty($_GET['confirm'])) {
+    if ($_GET['confirm'] == 'delete') {
+        echo "<p style='color: green;'>Post deleted.</p>";
+    } else if ($_GET['confirm'] == 'update') {
+        echo "<p style='color: green;'>Post updated.</p>";
+    }
+}
+?>
 <?php
 }else if($action == 'edit'){
     $sql = 'SELECT * FROM `posts` WHERE `ID`='.$id;
@@ -97,6 +107,7 @@ if(empty($action)){
     <form method="POST">
         <input type="hidden" name="form-type" value="edit">
         <input type="hidden" name="id" value="<?=$row['ID'] ?>">
+        <input type="hidden" name="confirm" value="Post successfully edited">
         <input type="hidden" name="author" value="<?=$row['Author'] ?>">
         <label><strong>Title</strong></label><br><input type="text" name="Title" placeholder="Title" value="<?=$row['Title'] ?>"><br>
         <label><strong>Content</strong></label><br><textarea name="Content" rows="10" cols="60"><?=$row['Content'] ?></textarea><br>
@@ -104,7 +115,7 @@ if(empty($action)){
         <select name="category">
             <?php
                 $sql = 'SELECT * FROM `categories` WHERE `active_flag`="y"';
-                $res = $conn->query($sql);
+                $res = $conn->query($sql); 
                 while($cat = $res->fetch_assoc()){
                     if ($row['category_id'] == $cat['category_id']) {
                         echo "<option value=".$cat['category_id']." selected>".$cat['category_name']."</option>";
@@ -126,6 +137,7 @@ if(empty($action)){
     <form method="POST">
         <input type="hidden" name="form-type" value="delete"><br>
         <input type="hidden" name="id" value="<?=$row['ID'] ?>">
+        <input type="hidden" name="confirm" value="Post successfully deleted">
         <p>Are you sure you want to delete this post?</p>
         <input type="submit" value="Delete">
     </form>
