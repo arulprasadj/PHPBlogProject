@@ -88,7 +88,7 @@ SQL;
                             $res = $conn->query($sql);
                             $cat = $res->fetch_assoc();
                             echo "<table>";
-                            echo "<tr><td style='width: 70%;'><h3>".$row['Title']."</h3></td><td style='text-align: right;'><small> Posted on: ".$row['Date']." by ".$row['Author']."</small></td></tr>";
+                            echo "<tr><td style='width: 70%;'><h3 id=".$row['ID'].">".$row['Title']."</h3></td><td style='text-align: right;'><small> Posted on: ".$row['Date']." by ".$row['Author']."</small></td></tr>";
                             echo "<tr><td colspan='2'>".$row['Content']."</td></tr>";
                             echo "<tr><td colspan='2' style='border-bottom: 0px; font-size: .9em;color: #8DB38B;'>Category: ".$cat['category_name']."</tr>";
                             echo "</table>";
