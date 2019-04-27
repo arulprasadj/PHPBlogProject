@@ -21,7 +21,13 @@ if (isset($_POST['title'])) {
     }
 }
 ?> 
-<?php include_once 'shared/header.php'; ?>
+<?php 
+$headerArgs = Array(
+    'Title' => 'Posts',
+    'Description' => 'View blog posts',
+    'Keywords' => 'HTML,CSS,JavaScript,PHP'
+);
+include_once 'shared/header.php'; ?>
         <style> 
             textarea {
                 width: 100%;

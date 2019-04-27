@@ -44,11 +44,11 @@ SQL;
                     }
                     break;
                 case 1:
-                        $row = $stmt->fetch(); // may not need this
+                        $row = $stmt->fetch();
                         $_SESSION['loggedin'] = true;
                         $_SESSION['User_name'] = $User_name;
                         $_SESSION['user_role'] = $user_role;
-                        header('location: posts.php'); // I learned to use header so that I could direct user to posts.php without using form action.
+                        header('location: posts.php'); 
                         exit();
                     break;
                 case 2:
@@ -63,7 +63,14 @@ SQL;
     }
 
 ?>
-<?php include_once 'shared/header.php'; ?>
+<?php
+$headerArgs = array(
+    'Title' => 'Login Page',
+    'Keywords' => 'login, page, admin',
+    'Description' => 'Login page for admin area'
+); 
+include_once 'shared/header.php'; 
+?>
         <div class="header">
             <h1>Welcome.</h1>
         </div>

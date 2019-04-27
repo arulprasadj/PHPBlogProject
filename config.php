@@ -27,7 +27,7 @@ if ($conn->connect_error) {
 
 $PERMISSION_TYPES = array(
     0 => 'Admin', 
-    1 => 'User',
+    1 => 'User'
 );
 $PERMISSION_ADMIN = 0;
 $PERMISSION_USER = 1;
