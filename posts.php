@@ -53,7 +53,14 @@ if (isset($_POST['title'])) {
                     echo "NULL";
                  }
                   ?>
-                </p><p><a href="search.php">Search</a> |<a href="categories.php">Manage Categories</a> | <a href="manageposts.php">Manage Posts</a> 
+                </p>
+                <div>
+                    <form action="search.php" method="GET">
+                        <input type="text" name="search" style="width: 25%;">
+                        <input type="submit" value="Search">
+                    </form>
+                </div>
+                <p><a href="search.php">Search</a> |<a href="categories.php">Manage Categories</a> | <a href="manageposts.php">Manage Posts</a> 
                 <?=($_SESSION['user_role'] == $PERMISSION_ADMIN) ? '| <a href="users.php">Manage Users</a>' : '' ?>
                 | <a href="logout.php">Logout</a></p></div>
             </div>
