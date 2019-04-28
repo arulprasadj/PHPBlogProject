@@ -86,6 +86,7 @@ include 'shared/header.php'; ?>
                     $ratingResult = $conn->query($averageRating);
                     $ratingArray = $ratingResult->fetch_assoc();
                     $rating = (!empty($ratingArray['rating'])) ? $ratingArray['rating'] : '5';
+                    echo "<span style='color:green;'>Thanks for rating!</span>";
                     for ($i=1; $i <= 5; $i++) {
                         if ($i <= $rating) {
                             ?>
@@ -99,9 +100,15 @@ include 'shared/header.php'; ?>
                     }
                 } else {
                     for ($i=1; $i <= 5; $i++) {
-                        ?>
-                        <a href="post.php?id=<?=$id ?>&rating=<?=$i ?>" style="text-decoration: none;"><i class='fa fa-star' style='color: green;'></i></a>
-                        <?php
+                        if ($i <= $rating) {
+                            ?>
+                            <a href="post.php?id=<?=$id ?>&rating=<?=$i ?>" style="text-decoration: none;"><i class='fa fa-star' style='color: green;'></i>
+                            <?php
+                        } else {
+                            ?>
+                            <a href="post.php?id=<?=$id ?>&rating=<?=$i ?>" style="text-decoration: none;"><i class='fa fa-star' style='color: #C3F3C0;'></i></a>
+                            <?php
+                        }
                     }
                 }
                 ?>
