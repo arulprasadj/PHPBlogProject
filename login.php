@@ -16,7 +16,7 @@
             }
         } else {
             $sql = <<<SQL
-                SELECT users.User_name, First_name, user_role
+                SELECT users.User_name, First_name, user_role, users.User_id
                 FROM `users`, `passwords`
                 WHERE users.User_id = passwords.User_id 
                 AND ?=users.User_name
@@ -27,7 +27,7 @@ SQL;
             $stmt->bind_param('ss', $formusername, $formpassword);
             $stmt->execute();
             $stmt->store_result();
-            $stmt->bind_result($User_name, $First_name, $user_role);
+            $stmt->bind_result($User_name, $First_name, $user_role, $User_id);
 
             switch ($stmt->num_rows) {
                 case 0:
@@ -48,6 +48,7 @@ SQL;
                         $_SESSION['loggedin'] = true;
                         $_SESSION['User_name'] = $User_name;
                         $_SESSION['user_role'] = $user_role;
+                        $_SESSION['user_id'] = $User_id;
                         header('location: posts.php'); 
                         exit();
                     break;

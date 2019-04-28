@@ -29,5 +29,5 @@
             </table>
         </form>
         </div>
-<?php include 'footer.php'; ?>
+<?php include 'shared/footer.php'; ?>
 
